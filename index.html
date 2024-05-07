@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aplikasi Enkripsi-Dekripsi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #555555;
+        }
+
+        textarea, input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            color: #333333;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #outputText {
+            height: 100px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Aplikasi Enkripsi-Dekripsi</h1>
+
+        <label for="inputText">Teks Asli:</label>
+        <textarea id="inputText" rows="4" placeholder="Masukkan teks yang akan dienkripsi..." autofocus></textarea>
+
+        <label for="password">Kata Sandi:</label>
+        <input type="password" id="password" placeholder="Masukkan kata sandi">
+
+        <button onclick="encrypt()">Enkripsi</button>
+        <button onclick="decrypt()">Dekripsi</button>
+
+        <label for="outputText">Hasil:</label>
+        <textarea id="outputText" rows="4" disabled></textarea>
+    </div>
+
+    <script>
+        function encrypt() {
+            var inputText = document.getElementById("inputText").value;
+            var password = document.getElementById("password").value;
+
+            var encryptedText = CryptoJS.AES.encrypt(inputText, password).toString();
+            document.getElementById("outputText").value = encryptedText;
+        }
+
+        function decrypt() {
+            var encryptedText = document.getElementById("outputText").value;
+            var password = document.getElementById("password").value;
+
+            var decryptedText = CryptoJS.AES.decrypt(encryptedText, password).toString(CryptoJS.enc.Utf8);
+            document.getElementById("inputText").value = decryptedText;
+        }
+    </script>
+</body>
+</html>
